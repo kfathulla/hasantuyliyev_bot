@@ -1,8 +1,11 @@
-from aiogram import types
-from aiogram.dispatcher.filters import BoundFilter
+from aiogram.filters import BaseFilter
+from aiogram.types import Message
+
+from src.config import Config
 
 
-class AdminFilter(BoundFilter):
-    async def check(self, message: types.Message) -> bool:
-        member = await message.chat.get_member(message.from_user.id)
-        return member.is_chat_admin()
+class AdminFilter(BaseFilter):
+    is_admin: bool = True
+
+    async def __call__(self, obj: Message, config: Config) -> bool:
+        return (obj.from_user.id in config.tg_bot.admin_ids) == self.is_admin

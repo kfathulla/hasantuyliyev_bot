@@ -2,17 +2,17 @@ import asyncpg
 from asyncpg import Connection
 
 from src.brokers.storage_brokers import IStorageBroker
-from src.config import config
+from src.config import Config
 
 
 class StorageBroker(IStorageBroker):
     async def connection(self) -> Connection:
         connection = await asyncpg.connect(
-            user=config.DB_USER,
-            password=config.DB_PASS,
-            host=config.DB_HOST,
-            port=config.DB_PORT,
-            database=config.DB_NAME,
+            user=Config.db.user,
+            password=Config.db.password,
+            host=Config.db.host,
+            port=Config.db.port,
+            database=Config.db.database
         )
 
         return connection

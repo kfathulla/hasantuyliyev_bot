@@ -1,13 +1,13 @@
 from aiogram import types
-from aiogram.dispatcher.handler import CancelHandler
-from aiogram.dispatcher.middlewares import BaseMiddleware
+from aiogram.handlers import CancelHandler
+from aiogram.dispatcher.middlewares import Middleware
 
 from src.loader import bot
-from src.config.config import CHANNELS
+from src.config import Config
 from src.utils.misc import subscription
 
 
-class BigBrother(BaseMiddleware):
+class BigBrother(manager.MiddlewareManager):
     async def on_pre_process_update(self, update: types.Update, data: dict):
         if update.message:
             user = update.message.from_user.id
@@ -22,7 +22,7 @@ class BigBrother(BaseMiddleware):
 
         result = "Botdan foydalanish uchun quyidagi kanallarga obuna bo'ling:\n"
         final_status = True
-        for channel in CHANNELS:
+        for channel in Config:
             status = await subscription.check(user_id=user,
                                               channel=channel)
             final_status *= status

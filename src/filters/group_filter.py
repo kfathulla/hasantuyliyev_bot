@@ -1,10 +1,11 @@
-from aiogram import types
-from aiogram.dispatcher.filters import BoundFilter
+from aiogram.enums.chat_type import ChatType
+from aiogram.filters import BaseFilter
+from aiogram.types import Message
 
 
-class GroupFilter(BoundFilter):
-    async def check(self, message: types.Message) -> bool:
+class GroupFilter(BaseFilter):
+    async def __call__(self, message: Message) -> bool:
         return message.chat.type in (
-            types.ChatType.GROUP,
-            types.ChatType.SUPERGROUP
+            ChatType.GROUP,
+            ChatType.SUPERGROUP
         )
