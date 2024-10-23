@@ -3,7 +3,7 @@ from aiogram.filters import StateFilter
 from aiogram.fsm.context import FSMContext
 from aiogram.utils.markdown import hcode
 
-from filters.private_chat_filter import PrivateFilter
+from src.filters.private_chat_filter import PrivateFilter
 
 echo_router = Router()
 

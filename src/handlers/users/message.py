@@ -8,7 +8,7 @@ from src.config import Config
 from src.filters.private_chat_filter import PrivateFilter
 from src.keyboards.default.cancel import cancel_button
 from src.keyboards.default.menu_keyboards import menu_keyboards
-from states.message_state import MessageFormState
+from src.states.message_state import MessageFormState
 
 message_router = Router()
 

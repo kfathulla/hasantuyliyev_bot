@@ -4,7 +4,7 @@ import re
 from aiogram import Router, F, Bot
 from aiogram.types import Message
 
-from filters.group_filter import GroupFilter
+from src.filters.group_filter import GroupFilter
 
 reply_message_router = Router()
 

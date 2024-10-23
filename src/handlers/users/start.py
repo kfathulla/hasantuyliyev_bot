@@ -8,7 +8,6 @@ from aiogram.filters import CommandStart
 from src.config import Config
 from src.filters.private_chat_filter import PrivateFilter
 from src.keyboards.default.menu_keyboards import menu_keyboards
-from src.loader import services
 from src.models.users import User, UserFilter
 from src.utils.misc import subscription
 
