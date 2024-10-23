@@ -1,5 +1,8 @@
 import asyncio
 import logging
+import os
+import threading
+import socket
 
 import betterlogging as bl
 from aiogram import Bot, Dispatcher
@@ -12,6 +15,19 @@ from src.config import load_config, Config
 from src.handlers import router_list
 from src.utils.set_bot_commands import set_default_commands
 from src.services import broadcaster
+
+
+def run_dummy_server():
+    port = int(os.getenv("PORT", 8000))  # Use the PORT environment variable or default to 8000
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+        s.bind(("0.0.0.0", port))
+        s.listen()
+        while True:
+            conn, addr = s.accept()
+            conn.close()
+
+# Run the dummy server in a separate thread
+threading.Thread(target=run_dummy_server, daemon=True).start()
 
 
 # async def on_startup(dispatcher):
