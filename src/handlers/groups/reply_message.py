@@ -16,4 +16,4 @@ async def reply_message_handler(message: Message, bot: Bot):
     if match:
         message_id = match.group(1)
         user_id = match.group(2)
-        await bot.send_message(chat_id=user_id, reply_to_message_id=message_id, text=message.text)
+        await message.send_copy(chat_id=user_id, reply_to_message_id=message_id)
