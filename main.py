@@ -10,7 +10,7 @@ from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
 from aiogram.fsm.storage.memory import MemoryStorage
 
-from middlewares.check_subscription import CheckSubscriptionMiddleware
+from src.middlewares.check_subscription import CheckSubscriptionMiddleware
 from src.middlewares.config import ConfigMiddleware
 from src.config import load_config, Config
 from src.handlers import router_list
