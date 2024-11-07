@@ -10,6 +10,7 @@ from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
 from aiogram.fsm.storage.memory import MemoryStorage
 
+from middlewares.check_subscription import CheckSubscriptionMiddleware
 from src.middlewares.config import ConfigMiddleware
 from src.config import load_config, Config
 from src.handlers import router_list
@@ -40,7 +41,7 @@ async def on_startup(bot: Bot, admin_ids: list[int]):
     await broadcaster.broadcast(bot, admin_ids, "Bot ishga tushdi")
 
 
-def register_global_middlewares(dp: Dispatcher, config: Config, session_pool=None):
+def register_global_middlewares(bot: Bot, dp: Dispatcher, config: Config, session_pool=None):
     """
     Register global middlewares for the given dispatcher.
     Global middlewares here are the ones that are applied to all the handlers (you specify the type of update)
@@ -59,6 +60,9 @@ def register_global_middlewares(dp: Dispatcher, config: Config, session_pool=Non
     for middleware_type in middleware_types:
         dp.message.outer_middleware(middleware_type)
         dp.callback_query.outer_middleware(middleware_type)
+
+    dp.message.middleware(CheckSubscriptionMiddleware())
+    dp.callback_query.middleware(CheckSubscriptionMiddleware())
 
 
 def setup_logging():
@@ -98,7 +102,7 @@ async def main():
 
     dp.include_routers(*router_list)
 
-    register_global_middlewares(dp, config)
+    register_global_middlewares(bot, dp, config)
 
     await on_startup(bot, config.tg_bot.admin_ids)
     await dp.start_polling(bot)

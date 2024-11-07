@@ -28,7 +28,7 @@ async def user_start(message: Message, bot: Bot, config: Config):
         # users = await services.user_service.get_all_users(user_filter=UserFilter(updated_datetime_from=None,
         #                                                                          updated_datetime_to=None))
 
-        msg = """Assalomu alaykum. Ushbu bot orqali siz habaringizni Hasan Tuyliyevga yuborishingiz mumkin bo'ladi. 
+        msg = f"""Assalomu alaykum. Ushbu bot orqali siz habaringizni {config.misc.owner}ga yuborishingiz mumkin bo'ladi. 
             \nTaklif va murojatlarni yo'llashingiz mumkin.    
             \nBizni va o'zingizni vaqtingizni qadrlagan holda yozing.
             \nIltimos odob saqlang!"""
@@ -41,12 +41,12 @@ async def user_start(message: Message, bot: Bot, config: Config):
         logging.error(ex)
 
 
-@start_router.message(PrivateFilter(), F.text == "check_subs")
+@start_router.callback_query(PrivateFilter(), F.data == "check_subs")
 async def check_subs(call: CallbackQuery, bot: Bot, config: Config):
     await call.answer()
     result = str()
     for channel in config.misc.channel_ids:
-        status = await subscription.check(user_id=call.from_user.id, channel=channel)
+        status = await subscription.check(bot, user_id=call.from_user.id, channel=channel)
         channel = await bot.get_chat(channel)
         if status:
             result += f"✔ <b>{channel.title}</b> kanaliga obuna bo'lgansiz! \n\n"
