@@ -61,8 +61,8 @@ def register_global_middlewares(bot: Bot, dp: Dispatcher, config: Config, sessio
         dp.message.outer_middleware(middleware_type)
         dp.callback_query.outer_middleware(middleware_type)
 
-    dp.message.middleware(CheckSubscriptionMiddleware())
-    dp.callback_query.middleware(CheckSubscriptionMiddleware())
+    # dp.message.middleware(CheckSubscriptionMiddleware())
+    # dp.callback_query.middleware(CheckSubscriptionMiddleware())
 
 
 def setup_logging():
