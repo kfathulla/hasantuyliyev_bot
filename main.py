@@ -18,30 +18,14 @@ from src.utils.set_bot_commands import set_default_commands
 from src.services import broadcaster
 
 
-def run_dummy_server():
-    port = int(os.getenv("PORT", 8000))  # Use the PORT environment variable or default to 8000
-    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-        s.bind(("0.0.0.0", port))
-        s.listen()
-        while True:
-            conn, addr = s.accept()
-            conn.close()
-
-# Run the dummy server in a separate thread
-threading.Thread(target=run_dummy_server, daemon=True).start()
-
-
-# async def on_startup(dispatcher):
-#     await set_default_commands(dispatcher)
-#
-#     await on_startup_notify(dispatcher)
-
 async def on_startup(bot: Bot, admin_ids: list[int]):
     await set_default_commands(bot)
     await broadcaster.broadcast(bot, admin_ids, "Bot ishga tushdi")
 
 
-def register_global_middlewares(bot: Bot, dp: Dispatcher, config: Config, session_pool=None):
+def register_global_middlewares(
+    bot: Bot, dp: Dispatcher, config: Config, session_pool=None
+):
     """
     Register global middlewares for the given dispatcher.
     Global middlewares here are the ones that are applied to all the handlers (you specify the type of update)
@@ -97,7 +81,10 @@ async def main():
     config = load_config(".env")
     storage = MemoryStorage()
 
-    bot = Bot(token=config.tg_bot.token, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
+    bot = Bot(
+        token=config.tg_bot.token,
+        default=DefaultBotProperties(parse_mode=ParseMode.HTML),
+    )
     dp = Dispatcher(storage=storage)
 
     dp.include_routers(*router_list)

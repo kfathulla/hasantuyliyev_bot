@@ -2,6 +2,7 @@ import logging
 import uuid
 
 from aiogram import Router, F, Bot
+from aiogram.filters.callback_data import CallbackData
 from aiogram.types import Message, CallbackQuery
 from aiogram.filters import CommandStart
 
@@ -12,7 +13,6 @@ from src.models.users import User, UserFilter
 from src.utils.misc import subscription
 
 start_router = Router()
-
 
 @start_router.message(PrivateFilter(), CommandStart())
 async def user_start(message: Message, bot: Bot, config: Config):
