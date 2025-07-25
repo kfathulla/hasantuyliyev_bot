@@ -7,13 +7,25 @@ from aiogram.types import Message, ReplyKeyboardRemove
 from src.config import Config
 from src.filters.private_chat_filter import PrivateFilter
 from src.keyboards.default.cancel import cancel_button
+from src.keyboards.inline.masterclass_link import masterclass_link
 from src.keyboards.default.menu_keyboards import menu_keyboards
 from src.states.message_state import MessageFormState
 
 message_router = Router()
 
+@message_router.message(PrivateFilter(), F.text == "🤵 Uylan do'stim! Masterklass")
+async def message_handler(message: Message, state: FSMContext, bot: Bot):
+    try:
+        text = ("""Uylan do'stim ! Masterklasda uylanishga bog'liq hamma muammolarga yechim topasiz insha Alloh 
 
-@message_router.message(PrivateFilter(), F.text == "✉️ Xabar yuborish")
+Keling ushbu yaxshilikni yaqinlaringizga ham ulashing , masterklass bo'ladigan yopiq kanalga qo'shilish uchun ushbu habarni 3 ta do'stingizga yuboring , ular botga qo'shilgandan sizga havola yuboriladi.""")
+        await message.answer(text=text, reply_markup=masterclass_link)
+        # photo = await message.answer_photo(photo=InputFile("uploads/images/img.png"))
+        # print(photo.photo[-1].file_id)
+    except Exception as ex:
+        logging.error(ex)
+
+@message_router.message(PrivateFilter(), F.text == "✉️ Hasan Tuyliyevga murojaat")
 async def message_handler(message: Message, state: FSMContext, bot: Bot):
     try:
         await state.set_state(MessageFormState.AnonymousMessage)

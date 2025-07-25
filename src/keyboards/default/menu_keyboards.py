@@ -4,8 +4,11 @@ from aiogram.types import \
 menu_keyboards = ReplyKeyboardMarkup(
     keyboard=[
         [
-            KeyboardButton(text="✉️ Xabar yuborish")
+            KeyboardButton(text="✉️ Hasan Tuyliyevga murojaat")
         ],
+        [
+            KeyboardButton(text="🤵 Uylan do'stim! Masterklass"),
+        ]
         # [
         #     KeyboardButton(text="Donat 🍩"),
         #     # KeyboardButton(text="Reklama boʻyicha 🤝")

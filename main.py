@@ -1,8 +1,5 @@
 import asyncio
 import logging
-import os
-import threading
-import socket
 
 import betterlogging as bl
 from aiogram import Bot, Dispatcher

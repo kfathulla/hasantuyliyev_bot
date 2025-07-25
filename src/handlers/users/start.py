@@ -3,7 +3,7 @@ import uuid
 
 from aiogram import Router, F, Bot
 from aiogram.filters.callback_data import CallbackData
-from aiogram.types import Message, CallbackQuery
+from aiogram.types import Message, CallbackQuery, FSInputFile
 from aiogram.filters import CommandStart
 
 from src.config import Config
@@ -27,16 +27,42 @@ async def user_start(message: Message, bot: Bot, config: Config):
         #
         # users = await services.user_service.get_all_users(user_filter=UserFilter(updated_datetime_from=None,
         #                                                                          updated_datetime_to=None))
+        msg = f"""#yigitlarga
 
-        msg = f"""Assalomu alaykum. Ushbu bot orqali siz habaringizni {config.misc.owner}ga yuborishingiz mumkin bo'ladi. 
-            \nTaklif va murojatlarni yo'llashingiz mumkin.    
-            \nBizni va o'zingizni vaqtingizni qadrlagan holda yozing.
-            \nIltimos odob saqlang!"""
-        await message.answer(text=msg, reply_markup=menu_keyboards)
+Uylan do'stim!
 
-        # msg = f"{user.__dict__} bazaga qo'shildi.\nBazada {users.total_count} ta foydalanuvchi bor."
-        # for admin in config.tg_bot.admin_ids:
-        #     await bot.send_message(chat_id=admin, text=msg)
+Inson hayotini eng ahamyatli voqealaridan biri bu oila qurish.
+
+Uzoq kutilgan (rosti men ham intiqib kutgan) kun nasib 26-iyul 21.00 da yopiq telegram kanalda yigitlar uchun alohida uylanish mavzusida suhbat qilib bermoqchiman.
+
+Unda Ustozlardan , kitoblardan va yaqinlarimizdan o'rgangan amaliy bilimlarni bermoqchiman.
+
+Quyida suhbatda ko'riladigan ayrim masalalar 
+
+Puli bor sog'lom yigit oila quishga tayyormasmi?
+
+Qanday tayyorlanalidi o'zi? 
+
+Menga mos qiz O'zbekistonda bormi?
+
+Qaysida xayr bor ilmli ko'cha qizidami yoki ilmsiz uy qizida?
+
+. ......
+
+Boshqa yan ko'plab muhim masalalarga milliy qadriyatlarimizdan kelib chiqib to'xtalib o'tamiz.
+
+Bu suhbat uchun maxsus tayyorlanyabman va nasib siz kutgandan ko'pini aytamiz.
+
+Suhbatga qo'shilish uchun botga kiring
+
+
+@hasantuyliyev_bot
+@hasantuyliyev_bot
+@hasantuyliyev_bot
+@hasantuyliyev_bot"""
+        await message.answer_photo(caption=msg, reply_markup=menu_keyboards, photo="AgACAgIAAxkDAAIJYmiDT92_ksbCIe8G9xGUqJqcDd47AAJ38TEbFPgYSFrksBR7dmX8AQADAgADeQADNgQ")
+        # photo = await message.answer_photo(caption=msg, photo=FSInputFile("uploads/start_img.jpg"))
+        # print(photo.photo[-1].file_id)
     except Exception as ex:
         logging.error(ex)
 
